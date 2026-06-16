@@ -2,34 +2,16 @@
 # должны иметь возможность 'использовать подтипы'
 # базового типа, не зная об этом
 
-class Vehicle:
-    def __init__(self, name: str, speed: float):
-        self.name = name
-        self.speed = speed
-
-    def get_name(self) -> str:
-        return f"The vehicle name {self.name}"
-
-    def get_speed(self) -> str:
-        return f"The vehicle speed {self.speed}"
-
-class VehicleWithoutEngine(Vehicle):
-    def start_moving(self):
+class Animal:
+    def move(self):
         raise NotImplementedError
 
-class VehicleWithEngine(Vehicle):
-    def engine(self):
+class Dog(Animal):
+    def move(self):
         pass
 
-    def start_engine(self):
-        self.engine()
-
-class Car(VehicleWithEngine):
-    def start_engine(self):
-        pass
-
-class Bicycle(VehicleWithoutEngine):
-    def start_moving(self):
+class Fish(Animal):
+    def move(self):
         pass
 
 # Принцип подстановки Лисков (Liskov Substitution Principle - LSP)
