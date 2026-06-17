@@ -1,58 +1,21 @@
-from abc import ABC, abstractmethod
+# Factory (Фабричный метод)
+# Делегирует создание объектов подклассам.
+# Базовый Creator объявляет фабричный метод,
+# а конкретные создатели возвращают нужные продукты.
+# Это отделяет клиентский код от конкретных классов продуктов.
 
-# Абстрактная фабрика
-class EnergyFactory(ABC):
-    @abstractmethod
-    def create_generator(self):
+class Product:
+    def operation(self):
+        raise NotImplementedError
+class ConcreteProduct(Product):
+    def operation(self):
         pass
-
-    @abstractmethod
-    def create_battery(self):
-        pass
-
-# Конкретные фабрики
-class HomeEnergyFactory(EnergyFactory):
-    def create_generator(self):
-        return "Домашний генератор 5 кВт"
-
-    def create_battery(self):
-        return "Домашний аккумулятор 500 кВт * ч"
-
-class IndustrialEnergyFactory(EnergyFactory):
-    def create_generator(self):
-        return "Промышленный генератор 5 кВт"
-    def create_battery(self):
-        return "Промышленный аккумулятор 500 кВт * ч"
-
-def create_energy_system(factory):
-    generator = factory.create_generator()
-    battery = factory.create_battery()
-    print(f"Генератор: {generator}")
-    print(f"Аккумулятор: {battery}")
-    print()
-
-# Создаем домашнюю энергосистему
-home_factory = HomeEnergyFactory()
-print("Домашняя энергосистема:")
-create_energy_system(home_factory)
-
-# Создаем промышленную энергосистему
-industrial_factory = IndustrialEnergyFactory()
-print("Промышленная энергосистема:")
-create_energy_system(industrial_factory)
+class Creator:
+    def factory_method(self):
+        raise NotImplementedError
+class ConcreteCreator(Creator):
+    def factory_method(self):
+        return ConcreteProduct()
 
 
-
-
-
-
-
-#Абстрактная фабрика EnergyFactory определяет общий интерфейс для создания генераторов и
-# аккумуляторов. Конкретные фабрики HomeEnergyFactory и IndustrialEnergyFactory реализуют этот интерфейс, создавая
-# совместимые компоненты для домашних и промышленных энергосистем. Функция create_energy_system использует
-# любую из фабрик для создания готовой энергосистемы, гарантируя правильное сочетание компонентов.
-# Таким образом, паттерн позволяет:
-# 1.Создавать семейства совместимых объектов (генератор + аккумулятор)
-# 2.Легко добавлять новые типы энергосистем через новые фабрики
-# 3.Изолировать клиентский код от конкретных классов компонентов
 

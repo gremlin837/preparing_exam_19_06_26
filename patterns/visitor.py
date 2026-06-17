@@ -1,80 +1,19 @@
-from abc import ABC, abstractmethod
-
-
-# Элементы (фигуры)
-class Shape(ABC):
-    @abstractmethod
+class Element:
     def accept(self, visitor):
+        raise NotImplementedError
+class ConcreteElement(Element):
+    def accept(self, visitor):
+        visitor.visit_concrete_element(self)
+class Visitor:
+    def visit_concrete_element(self, element):
+        raise NotImplementedError
+class ConcreteVisitor(Visitor):
+    def visit_concrete_element(self, element):
         pass
 
-
-class Circle(Shape):
-    def __init__(self, radius):
-        self.radius = radius
-
-    def accept(self, visitor):
-        return visitor.visit_circle(self)
-
-
-class Rectangle(Shape):
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-
-    def accept(self, visitor):
-        return visitor.visit_rectangle(self)
-
-
-# Посетители
-class Visitor(ABC):
-    @abstractmethod
-    def visit_circle(self, circle):
-        pass
-
-    @abstractmethod
-    def visit_rectangle(self, rectangle):
-        pass
-
-
-class AreaCalculator(Visitor):
-    def visit_circle(self, circle):
-        return 3.14159 * circle.radius ** 2
-
-    def visit_rectangle(self, rectangle):
-        return rectangle.width * rectangle.height
-
-
-class PerimeterCalculator(Visitor):
-    def visit_circle(self, circle):
-        return 2 * 3.14159 * circle.radius
-
-    def visit_rectangle(self, rectangle):
-        return 2 * (rectangle.width + rectangle.height)
-
-
-# Использование
-if __name__ == "__main__":
-    shapes = [
-        Circle(5),
-        Rectangle(4, 6),
-        Circle(3),
-        Rectangle(2, 8)
-    ]
-
-    area_visitor = AreaCalculator()
-    perimeter_visitor = PerimeterCalculator()
-
-    print("Площади фигур:")
-    for shape in shapes:
-        area = shape.accept(area_visitor)
-        print(f"{shape.__class__.__name__}: {area:.2f}")
-
-    print("\nПериметры фигур:")
-    for shape in shapes:
-        perimeter = shape.accept(perimeter_visitor)
-        print(f"{shape.__class__.__name__}: {perimeter:.2f}")
-
-
+# Visitor (Посетитель)
+# Позволяет добавить новую операцию к иерархии классов, не изменяя сами классы.
+# Элементы принимают посетителя, который реализует операцию для каждого конкретного элемента.
 
 # Visitor (Посетитель)
 # Суть: позволяет добавлять новые операции к объектам, не изменяя их классы. Операция выносится в отдельный класс-«посетитель».

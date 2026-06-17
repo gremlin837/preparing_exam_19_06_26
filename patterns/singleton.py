@@ -1,41 +1,15 @@
-class DatabaseConnection:
-    __instance = None
-
+class Singleton:
+    _instance = None
     def __new__(cls):
-        """Переопределение метода создания объекта"""
-        if cls.__instance is None:
-            cls.__instance = super().__new__(cls)
-            # Инициализация подключения к базе данных
-            cls.__instance.connection = "Установлено подключение к базе данных"
-        return cls.__instance
-
-    def query(self, sql):
-        """Метод для выполнения SQL-запросов"""
-        print(f"Выполняется запрос: {sql}")
-        return f"Результат запроса: {sql}"
-
-# Использование
-db1 = DatabaseConnection()
-print(db1.connection) # Установлено плдключение к базе данных
-
-db2 = DatabaseConnection()
-print(db2.connection) # Установлено плдключение к базе данных
-
-# Проверка что это один и тот же объект
-print(db1 is db2) # True - это один и тот же экземпляр
-
-# Выполнение запросов
-result1 = db1.query("SELECT * FROM users")
-result2 = db2.query("SELECT * FROM products")
-
-print(result1)
-print(result2)
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
 
-
-
-
-
+# Singleton (Одиночка)
+# Гарантирует, что у класса существует только один экземпляр,
+# и предоставляет глобальную точку доступа к нему.
+# В примере переопределён __new__, чтобы всегда возвращать один и тот же объект
 
 
 
