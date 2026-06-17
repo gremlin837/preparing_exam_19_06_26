@@ -3,7 +3,6 @@
 class Report:
     def get_data(self):
         pass
-
 class ReportPrinter:
     def print_report(self, report: Report):
         pass

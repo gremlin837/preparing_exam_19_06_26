@@ -2,11 +2,9 @@
 class Discount:
     def apply(self, price):
         raise NotImplementedError
-
 class PercentageDiscount(Discount):
     def apply(self, price):
         pass
-
 class FixedDiscount(Discount):
     def apply(self, price):
         pass

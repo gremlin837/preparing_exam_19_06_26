@@ -5,11 +5,9 @@
 class Animal:
     def move(self):
         raise NotImplementedError
-
 class Dog(Animal):
     def move(self):
         pass
-
 class Fish(Animal):
     def move(self):
         pass
